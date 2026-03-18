@@ -1,7 +1,7 @@
-
 CREATE DATABASE IF NOT EXISTS campussafety;
 USE campussafety;
 
+DROP TABLE IF EXISTS users;
 CREATE TABLE users (
     user_id INT AUTO_INCREMENT PRIMARY KEY,
     roll_number VARCHAR(20) UNIQUE NOT NULL,
@@ -14,6 +14,7 @@ CREATE TABLE users (
     is_active BOOLEAN DEFAULT TRUE
 );
 
+DROP TABLE IF EXISTS complaints;
 CREATE TABLE complaints (
     complaint_id INT AUTO_INCREMENT PRIMARY KEY,
     student_id INT NOT NULL,
@@ -29,6 +30,7 @@ CREATE TABLE complaints (
     FOREIGN KEY (student_id) REFERENCES users(user_id)
 );
 
+DROP TABLE IF EXISTS complaint_comments;
 CREATE TABLE complaint_comments (
     comment_id INT AUTO_INCREMENT PRIMARY KEY,
     complaint_id INT NOT NULL,
@@ -39,6 +41,7 @@ CREATE TABLE complaint_comments (
     FOREIGN KEY (user_id) REFERENCES users(user_id)
 );
 
+DROP TABLE IF EXISTS emergency_alerts;
 CREATE TABLE emergency_alerts (
     alert_id INT AUTO_INCREMENT PRIMARY KEY,
     student_id INT NOT NULL,
@@ -50,6 +53,7 @@ CREATE TABLE emergency_alerts (
     FOREIGN KEY (student_id) REFERENCES users(user_id)
 );
 
+DROP TABLE IF EXISTS notifications;
 CREATE TABLE notifications (
     notification_id INT AUTO_INCREMENT PRIMARY KEY,
     user_id INT NOT NULL,
@@ -68,7 +72,6 @@ INSERT INTO users (roll_number, email, password, full_name, phone, user_type)
 VALUES 
 ('2024001', 'student@test.com', '$2y$10$abcdefghijklmnopqrstuvwxyz', 'Test Student', '9876543210', 'student'),
 ('ADMIN001', 'admin@test.com', '$2y$10$abcdefghijklmnopqrstuvwxyz', 'Admin User', '9111111111', 'admin');
-
 
 CREATE INDEX idx_email ON users(email);
 CREATE INDEX idx_roll_number ON users(roll_number);
